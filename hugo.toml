@@ -1,4 +1,4 @@
-baseurl = "https://ozansan.dev"
+baseurl = "https://ozansan.dev/"
 title = "Ozan Şan"
 theme = "hugo-coder"
 languagecode = "en"

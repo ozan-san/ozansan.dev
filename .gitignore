@@ -69,3 +69,4 @@ bower_components
 .awspublish*
 
 /public
+/resources/_gen/
