@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Ozan Şan's personal website — rewritten in Compose for Web."
+    />
+    <title>Ozan Şan · Compose for Web</title>
+    <style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #fafafa;
+      }
+
+      #composeApp {
+        width: 100%;
+        height: 100%;
+      }
+
+      #warning {
+        position: absolute;
+        top: 100px;
+        left: 100px;
+        z-index: 100;
+        max-width: 830px;
+        display: none;
+        padding: 16px;
+        background: white;
+        border-radius: 8px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="composeApp"></div>
+
+    <div id="warning">
+      ⚠️ This app is built with Compose Multiplatform for Web and needs a browser
+      with WebAssembly GC support (Chrome 119+, Firefox 120+, Safari 18+).
+    </div>
+
+    <script src="ozansan.js"></script>
+    <script>
+      const unhandledError = (event, error) => {
+        if (error instanceof WebAssembly.CompileError) {
+          document.getElementById("warning").style.display = "initial";
+          const overlay = document.getElementById(
+            "webpack-dev-server-client-overlay",
+          );
+          if (overlay != null) overlay.style.display = "none";
+        }
+      };
+      addEventListener("error", (event) => unhandledError(event, event.error));
+      addEventListener("unhandledrejection", (event) =>
+        unhandledError(event, event.reason),
+      );
+    </script>
+  </body>
+</html>

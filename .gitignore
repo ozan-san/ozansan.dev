@@ -19,3 +19,8 @@ npm-debug.log*
 # Editors
 .vscode/
 .idea/
+
+# Compose for Web (Gradle)
+compose-web/.gradle/
+compose-web/.kotlin/
+compose-web/build/

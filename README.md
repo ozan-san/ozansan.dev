@@ -1,47 +1,36 @@
 # ozansan.dev
 
-Personal website of Ozan Şan, built with [Astro](https://astro.build).
+Personal website of Ozan Şan — [ozansan.dev](https://ozansan.dev).
 
-## Stack
+The live site is built with **Compose Multiplatform for Web** (Kotlin/Wasm) and
+lives in [`compose-web/`](./compose-web). Pushes to `main` build it and deploy
+it to GitHub Pages.
 
-- **Astro** — static site output
-- **Content collections** — blog posts and standalone pages
-- **Plain CSS** — light/dark theming, no UI framework
+An earlier **Astro** implementation is kept at the repository root as an
+alternative: it is fast, static and SEO-friendly. It is no longer the deployed
+site, but it still builds.
 
-## Commands
+## Live site — Compose for Web
 
-| Command           | Action                                        |
-| :---------------- | :-------------------------------------------- |
-| `npm install`     | Install dependencies                          |
-| `npm run dev`     | Start the dev server at `localhost:4321`      |
-| `npm run build`   | Build the production site to `./dist`         |
-| `npm run preview` | Preview the production build locally          |
+```bash
+cd compose-web
 
-## Project structure
-
-```
-public/                 Static assets (avatar, favicon, CNAME)
-src/
-  components/           Header, Footer, ThemeToggle, Social, FormattedDate
-  content/
-    blog/               Blog posts (Markdown)
-    pages/              Standalone pages (e.g. about)
-  layouts/              BaseLayout, PostLayout
-  pages/                Routes: /, /posts/, /posts/[slug]/, /about/, 404
-  styles/global.css     Global styles and theme tokens
-  consts.ts             Site metadata, navigation and social links
-  content.config.ts     Content collection schemas
-astro.config.mjs        Astro configuration
+./gradlew wasmJsBrowserDevelopmentRun   # dev server at localhost:8080
+./gradlew wasmJsBrowserDistribution     # production build
 ```
 
-## Content
+Output: `compose-web/build/dist/wasmJs/productionExecutable/`
 
-- **Blog posts** live in `src/content/blog/`. Frontmatter: `title`, `description`,
-  `date`, `draft`, `tags`, `categories`, `externalLink`.
-- **Pages** live in `src/content/pages/`.
-- Posts marked `draft: true` are excluded from production builds.
+## Alternative — Astro
+
+```bash
+npm install
+npm run dev      # localhost:4321
+npm run build    # ./dist
+```
 
 ## Deployment
 
-Pushing to `main` builds the site and deploys it to GitHub Pages via
-`.github/workflows/deploy.yml`.
+`.github/workflows/deploy.yml` builds `compose-web` and publishes
+`compose-web/build/dist/wasmJs/productionExecutable` to GitHub Pages on every
+push to `main`.
