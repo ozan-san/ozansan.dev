@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -30,6 +31,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.Image
 import dev.ozansan.site.generated.resources.Res
 import dev.ozansan.site.generated.resources.avatar
+import dev.ozansan.site.generated.resources.metu
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
@@ -158,8 +160,11 @@ fun AboutPage() {
         Bullet("Backend development.")
 
         SectionHeading("Education")
-        SubHeading("Middle East Technical University (ODTÜ), Department of Computer Engineering - Ankara, Türkiye")
-        Paragraph("BSc in Computer Engineering. Graduated 18th in class, with a cGPA of 3.46/4.00.")
+        EducationItem(
+            university = "Middle East Technical University (ODTÜ)",
+            major = "Department of Computer Engineering - Ankara, Türkiye",
+            description = "BSc in Computer Engineering. Graduated 18th in class, with a cGPA of 3.46/4.00.",
+        )
 
         SectionHeading("Past experience")
         ExperienceItem(
@@ -230,6 +235,46 @@ fun AboutPage() {
         Skill("Backend Frameworks", "Spring Boot w/ Java.", FaBrand.Java)
         Skill("Tools and Other", "Git, Jira, JSM / Opsgenie, AWS.", FaBrand.Aws)
         Skill("Languages", "English (full professional proficiency), Turkish (Native).", null)
+    }
+}
+
+@Composable
+private fun EducationItem(
+    university: String,
+    major: String,
+    description: String,
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
+        verticalAlignment = Alignment.Top,
+    ) {
+        Image(
+            painter = painterResource(Res.drawable.metu),
+            contentDescription = "METU logo",
+            contentScale = ContentScale.Fit,
+            modifier = Modifier
+                .size(56.dp)
+                .clip(RoundedCornerShape(8.dp)),
+        )
+        Spacer(Modifier.width(16.dp))
+        Column(Modifier.weight(1f)) {
+            Text(
+                text = university,
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold,
+            )
+            Text(
+                text = major,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(top = 2.dp),
+            )
+            Text(
+                text = description,
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.padding(top = 8.dp),
+            )
+        }
     }
 }
 

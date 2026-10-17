@@ -39,9 +39,15 @@ fun main() {
     configureWebResources {
         resourcePathMapping { path -> "./$path" }
     }
-    ComposeViewport("composeApp") {
-        App()
-    }
+    ComposeViewport(
+        viewportContainerId = "composeApp",
+        configure = {
+            isA11YEnabled = false
+        },
+        content = {
+            App()
+        },
+    )
 }
 
 @Composable
@@ -91,12 +97,17 @@ fun App() {
                         targetState = current,
                         transitionSpec = {
                             val forward = routeIndex(targetState) >= routeIndex(initialState)
+                            // Animate only through graphicsLayer (translation), which the
+                            // renderer can apply on the GPU without re-laying out or
+                            // re-rasterizing the page on every frame.
                             val enter = slideInHorizontally(
-                                initialOffsetX = { width -> if (forward) width else -width },
-                            ) + fadeIn(tween(400, easing = FastOutSlowInEasing))
+                                animationSpec = tween(300, easing = FastOutSlowInEasing),
+                                initialOffsetX = { width -> if (forward) width / 3 else -width / 3 },
+                            ) + fadeIn(tween(240, easing = FastOutSlowInEasing))
                             val exit = slideOutHorizontally(
-                                targetOffsetX = { width -> if (forward) -width else width },
-                            ) + fadeOut(tween(400, easing = FastOutSlowInEasing))
+                                animationSpec = tween(300, easing = FastOutSlowInEasing),
+                                targetOffsetX = { width -> if (forward) -width / 3 else width / 3 },
+                            ) + fadeOut(tween(200, easing = FastOutSlowInEasing))
                             enter togetherWith exit
                         },
                         modifier = Modifier.fillMaxWidth().weight(1f),
