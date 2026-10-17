@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Social from '../components/Social.astro';
+import { SITE } from '../consts';
+---
+
+<BaseLayout>
+  <section class="container centered">
+    <div class="about">
+      <div class="avatar">
+        <img src="/images/avatar.jpeg" alt={SITE.author} width="360" height="360" />
+      </div>
+      <h1>{SITE.author}</h1>
+      <h2>{SITE.info}</h2>
+      <Social />
+    </div>
+  </section>
+</BaseLayout>

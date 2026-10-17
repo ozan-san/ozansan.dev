@@ -1,9 +1,10 @@
-+++
-date = '2026-01-11T17:29:41+03:00'
-draft = false
-title = ''
-+++
+---
+title: About
+description: About Ozan Şan
+---
+
 ## About
+
 Hi! I'm Ozan Şan.
 
 I'm a software engineer, primarily working with:
@@ -68,4 +69,3 @@ BSc in Computer Engineering. Graduated 18th in class, with a cGPA of **3.46/4.00
 **Tools and Other:** Git, Jira, JSM / Opsgenie, AWS.
 
 **Languages:** **English (full professional proficiency)**, Turkish (Native).
-

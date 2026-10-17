@@ -1,0 +1,30 @@
+---
+import { SITE, NAV } from '../consts';
+import ThemeToggle from './ThemeToggle.astro';
+
+const path = Astro.url.pathname;
+const isActive = (href: string) => {
+  const base = href.replace(/\/$/, '');
+  return base === '' ? path === '/' : path.startsWith(base);
+};
+---
+
+<header class="site-header">
+  <nav class="container nav" aria-label="Main navigation">
+    <a class="site-title" href="/">{SITE.title}</a>
+    <ul class="nav-list">
+      {
+        NAV.map((item) => (
+          <li>
+            <a href={item.href} class:list={[{ active: isActive(item.href) }]}>
+              {item.name}
+            </a>
+          </li>
+        ))
+      }
+      <li>
+        <ThemeToggle />
+      </li>
+    </ul>
+  </nav>
+</header>

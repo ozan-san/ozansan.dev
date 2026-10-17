@@ -1,0 +1,32 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+
+const posts = (
+  await getCollection('blog', ({ data }) => (import.meta.env.PROD ? !data.draft : true))
+).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout title="Blog">
+  <section class="container list">
+    <header>
+      <h1 class="title">Blog</h1>
+    </header>
+    <ul>
+      {
+        posts.map((post) => (
+          <li>
+            <span class="date">
+              <FormattedDate date={post.data.date} />
+            </span>
+            <a class="title" href={post.data.externalLink || `/posts/${post.id}/`}>
+              {post.data.title}
+            </a>
+          </li>
+        ))
+      }
+      {posts.length === 0 && <li class="empty">No posts yet.</li>}
+    </ul>
+  </section>
+</BaseLayout>
