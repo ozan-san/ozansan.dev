@@ -3,6 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: light)"
+      content="#fafafa"
+    />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: dark)"
+      content="#1b1b1b"
+    />
     <meta
       name="description"
       content="Ozan Şan's personal website — rewritten in Compose for Web."
@@ -17,6 +28,11 @@
         padding: 0;
         overflow: hidden;
         background-color: #fafafa;
+      }
+
+      html.dark,
+      html.dark body {
+        background-color: #1b1b1b;
       }
 
       #composeApp {

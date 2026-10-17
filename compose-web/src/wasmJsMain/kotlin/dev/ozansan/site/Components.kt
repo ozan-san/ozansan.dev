@@ -117,24 +117,34 @@ fun SiteFooter() {
 @Composable
 fun SocialLinks() {
     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-        SocialLink("GitHub", GITHUB_URL)
-        SocialLink("LinkedIn", LINKEDIN_URL)
+        SocialLink("GitHub", GITHUB_URL, FaBrand.GitHub)
+        SocialLink("LinkedIn", LINKEDIN_URL, FaBrand.LinkedIn)
     }
 }
 
 @Composable
-private fun SocialLink(label: String, url: String) {
+private fun SocialLink(label: String, url: String, brand: FaBrand) {
     val uriHandler = LocalUriHandler.current
-    Text(
-        text = label,
-        style = MaterialTheme.typography.labelLarge,
-        color = MaterialTheme.colorScheme.onSurfaceVariant,
-        textDecoration = TextDecoration.Underline,
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .clip(RoundedCornerShape(6.dp))
             .clickable { uriHandler.openUri(url) }
             .padding(horizontal = 8.dp, vertical = 4.dp),
-    )
+    ) {
+        FaBrandIcon(
+            brand = brand,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            size = 18.dp,
+        )
+        Spacer(Modifier.width(6.dp))
+        Text(
+            text = label,
+            style = MaterialTheme.typography.labelLarge,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textDecoration = TextDecoration.Underline,
+        )
+    }
 }
 
 @Composable

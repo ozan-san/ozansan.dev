@@ -26,6 +26,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.Image
 import dev.ozansan.site.generated.resources.Res
 import dev.ozansan.site.generated.resources.avatar
@@ -165,6 +166,7 @@ fun AboutPage() {
             role = "Backend Software Engineer II",
             company = "Atlassian",
             companyUrl = "https://atlassian.com",
+            companyBrand = FaBrand.Atlassian,
             period = "September 2024 - September 2025",
             bullets = listOf(
                 "Worked on backend services of large-scale projects in Jira Service Management, Jira and other products.",
@@ -175,6 +177,7 @@ fun AboutPage() {
         ExperienceItem(
             role = "Mobile Software Engineer II (Android)",
             company = "Atlassian",
+            companyBrand = FaBrand.Atlassian,
             period = "August 2023 - September 2024",
             bullets = listOf(
                 "Built Atlassian's next level mobile experiences in Android.",
@@ -187,6 +190,7 @@ fun AboutPage() {
         ExperienceItem(
             role = "Mobile Software Engineer I (Android)",
             company = "Atlassian",
+            companyBrand = FaBrand.Atlassian,
             period = "July 2022 - August 2023",
             bullets = listOf(
                 "Worked on Atlassian's Incident Management platform Opsgenie's Android app.",
@@ -198,6 +202,7 @@ fun AboutPage() {
         ExperienceItem(
             role = "Android Developer (Part Time)",
             company = "Sociable, Inc.",
+            companyBrand = FaBrand.Android,
             period = "February 2022 - May 2022",
             bullets = listOf(
                 "Worked on developing Sociable Inc.'s mobile apps.",
@@ -207,6 +212,7 @@ fun AboutPage() {
         ExperienceItem(
             role = "Android Developer (Part Time)",
             company = "Pyde Technologies",
+            companyBrand = FaBrand.Android,
             period = "September 2020 - February 2021",
             bullets = listOf(
                 "Worked on Pyde Technologies' Android applications, PokeMate and PokeTrade.",
@@ -219,11 +225,11 @@ fun AboutPage() {
         Bullet("JotForm, June 2019 - July 2019.")
 
         SectionHeading("Skills")
-        Skill("Programming Languages", "Java, Kotlin, Python.")
-        Skill("Mobile Frameworks", "Android (XML & Jetpack Compose).")
-        Skill("Backend Frameworks", "Spring Boot w/ Java.")
-        Skill("Tools and Other", "Git, Jira, JSM / Opsgenie, AWS.")
-        Skill("Languages", "English (full professional proficiency), Turkish (Native).")
+        Skill("Programming Languages", "Java, Kotlin, Python.", FaBrand.Java)
+        Skill("Mobile Frameworks", "Android (XML & Jetpack Compose).", FaBrand.Android)
+        Skill("Backend Frameworks", "Spring Boot w/ Java.", FaBrand.Java)
+        Skill("Tools and Other", "Git, Jira, JSM / Opsgenie, AWS.", FaBrand.Aws)
+        Skill("Languages", "English (full professional proficiency), Turkish (Native).", null)
     }
 }
 
@@ -234,6 +240,7 @@ private fun ExperienceItem(
     period: String,
     bullets: List<String>,
     companyUrl: String? = null,
+    companyBrand: FaBrand? = null,
 ) {
     Column(Modifier.fillMaxWidth().padding(top = 18.dp)) {
         Text(
@@ -241,10 +248,10 @@ private fun ExperienceItem(
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold,
         )
-        if (companyUrl != null) {
-            LinkText(company, companyUrl)
-        } else {
-            Text(
+        when {
+            companyBrand != null -> BrandedText(companyBrand, company)
+            companyUrl != null -> LinkText(company, companyUrl)
+            else -> Text(
                 text = company,
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -261,8 +268,16 @@ private fun ExperienceItem(
 }
 
 @Composable
-private fun Skill(label: String, value: String) {
-    Row(Modifier.fillMaxWidth().padding(vertical = 3.dp)) {
+private fun Skill(label: String, value: String, brand: FaBrand?) {
+    Row(Modifier.fillMaxWidth().padding(vertical = 3.dp), verticalAlignment = Alignment.CenterVertically) {
+        if (brand != null) {
+            FaBrandIcon(
+                brand = brand,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                size = 18.dp,
+            )
+            Spacer(Modifier.width(8.dp))
+        }
         Text(
             text = "$label: ",
             style = MaterialTheme.typography.bodyLarge,

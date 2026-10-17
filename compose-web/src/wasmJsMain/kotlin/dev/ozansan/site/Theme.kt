@@ -11,9 +11,18 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import dev.ozansan.site.generated.resources.Res
+import dev.ozansan.site.generated.resources.IBMPlexSansCondensed_Bold
+import dev.ozansan.site.generated.resources.IBMPlexSansCondensed_Italic
+import dev.ozansan.site.generated.resources.IBMPlexSansCondensed_Medium
+import dev.ozansan.site.generated.resources.IBMPlexSansCondensed_Regular
+import dev.ozansan.site.generated.resources.IBMPlexSansCondensed_SemiBold
+import org.jetbrains.compose.resources.Font
 
 private val LightColors = lightColorScheme(
     primary = Color(0xFF1565C0),
@@ -39,45 +48,55 @@ private val DarkColors = darkColorScheme(
     outline = Color(0xFF383838),
 )
 
-private val SiteTypography = Typography(
+@Composable
+private fun ibmPlexSansCondensed(): FontFamily = FontFamily(
+    Font(Res.font.IBMPlexSansCondensed_Regular, FontWeight.Normal, FontStyle.Normal),
+    Font(Res.font.IBMPlexSansCondensed_Italic, FontWeight.Normal, FontStyle.Italic),
+    Font(Res.font.IBMPlexSansCondensed_Medium, FontWeight.Medium, FontStyle.Normal),
+    Font(Res.font.IBMPlexSansCondensed_SemiBold, FontWeight.SemiBold, FontStyle.Normal),
+    Font(Res.font.IBMPlexSansCondensed_Bold, FontWeight.Bold, FontStyle.Normal),
+)
+
+@Composable
+private fun siteTypography(family: FontFamily): Typography = Typography(
     headlineLarge = TextStyle(
-        fontFamily = FontFamily.SansSerif,
+        fontFamily = family,
         fontWeight = FontWeight.Bold,
         fontSize = 40.sp,
         lineHeight = 46.sp,
     ),
     headlineMedium = TextStyle(
-        fontFamily = FontFamily.SansSerif,
+        fontFamily = family,
         fontWeight = FontWeight.Bold,
         fontSize = 28.sp,
         lineHeight = 34.sp,
     ),
     titleLarge = TextStyle(
-        fontFamily = FontFamily.SansSerif,
+        fontFamily = family,
         fontWeight = FontWeight.SemiBold,
         fontSize = 22.sp,
         lineHeight = 28.sp,
     ),
     titleMedium = TextStyle(
-        fontFamily = FontFamily.SansSerif,
+        fontFamily = family,
         fontWeight = FontWeight.Normal,
         fontSize = 20.sp,
         lineHeight = 28.sp,
     ),
     bodyLarge = TextStyle(
-        fontFamily = FontFamily.SansSerif,
+        fontFamily = family,
         fontWeight = FontWeight.Normal,
         fontSize = 18.sp,
         lineHeight = 30.sp,
     ),
     bodyMedium = TextStyle(
-        fontFamily = FontFamily.SansSerif,
+        fontFamily = family,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
         lineHeight = 26.sp,
     ),
     labelLarge = TextStyle(
-        fontFamily = FontFamily.SansSerif,
+        fontFamily = family,
         fontWeight = FontWeight.SemiBold,
         fontSize = 16.sp,
     ),
@@ -88,7 +107,7 @@ fun SiteTheme(dark: Boolean, content: @Composable () -> Unit) {
     val target = if (dark) DarkColors else LightColors
     MaterialTheme(
         colorScheme = animatedScheme(target),
-        typography = SiteTypography,
+        typography = siteTypography(ibmPlexSansCondensed()),
         content = content,
     )
 }
