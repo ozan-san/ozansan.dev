@@ -64,6 +64,13 @@ fun HomePage() {
             )
             Spacer(Modifier.height(20.dp))
             SocialLinks()
+            Text(
+                text = "This site is built with Compose for Web.",
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(top = 24.dp),
+            )
         }
     }
 }
